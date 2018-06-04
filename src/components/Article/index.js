@@ -1,4 +1,6 @@
 import React, {PureComponent} from 'react'
+import ArticleComments from '../ArticleComments'
+import './article-style.css'
 
 
 class Article extends PureComponent {
@@ -14,7 +16,7 @@ class Article extends PureComponent {
     // }
 
     componentWillMount() {
-        console.log('mounting')
+        // console.log('mounting')
     }
 
     // componentWillReceiveProps(nextProps) {
@@ -24,11 +26,15 @@ class Article extends PureComponent {
     // }
 
     componentWillUpdate() {
-        console.log('will update')
+        // console.log('will update')
     }
     render() {
         const {article, isOpen, onButtonClick} = this.props
-        const body = isOpen && <section className="card-text">{article.text}</section>
+        const body = isOpen && 
+            <div className="card-text">
+                <section className="article-text">{article.text}</section>
+                <ArticleComments article = {article}/>  
+            </div>
         return (
             <div className="card mx-auto" style={{width: '70%'}}>
                 <div className="card-header">
@@ -39,11 +45,11 @@ class Article extends PureComponent {
                             {isOpen ? 'close': 'open'} {/* if 'this.state.isOpen' = true => 'close' */}
                         </button>
                     </h2>
+                    <h6 className="card-subtitle text-muted">
+                        date: {(new Date(article.date)).toDateString()}
+                    </h6>
                 </div>
                 <div className="card-body">
-                    <h6 className="card-subtitle text-muted">
-                        creation date: {(new Date(article.date)).toDateString()}
-                    </h6>
                     {body}
                 </div>
             </div> 
